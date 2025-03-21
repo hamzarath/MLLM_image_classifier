@@ -2,6 +2,7 @@ import os
 import base64
 from openai import OpenAI
 from sklearn.metrics import precision_score, recall_score
+from tqdm import tqdm
 
 # Point to your local LM Studio endpoint
 client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
@@ -32,7 +33,7 @@ y_true, y_pred = [], []
 # Classify images
 for category in categories:
     folder = os.path.join(base_dir, category)
-    for img_name in os.listdir(folder):
+    for img_name in tqdm(os.listdir(folder), desc=f"Processing {category} images"):
         img_path = os.path.join(folder, img_name)
         prediction = classify_image(img_path)
         y_true.append(category)
@@ -40,8 +41,12 @@ for category in categories:
         print(f"Image: {img_name} | True: {category} | Predicted: {prediction}")
 
 # Evaluate
-precision = precision_score(y_true, y_pred, pos_label='clean')
-recall = recall_score(y_true, y_pred, pos_label='clean')
+precision_clean = precision_score(y_true, y_pred, pos_label='clean')
+recall_clean = recall_score(y_true, y_pred, pos_label='clean')
+precision_messy = precision_score(y_true, y_pred, pos_label='messy')
+recall_messy = recall_score(y_true, y_pred, pos_label='messy')
 
-print(f"\nPrecision (clean): {precision:.2f}")
-print(f"Recall (clean): {recall:.2f}")
+print(f"\nPrecision (clean): {precision_clean:.2f}")
+print(f"Recall (clean): {recall_clean:.2f}")
+print(f"Precision (messy): {precision_messy:.2f}")
+print(f"Recall (messy): {recall_messy:.2f}")
