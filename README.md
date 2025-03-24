@@ -5,6 +5,7 @@ Let’s start with what Gemma actually is — and why it matters.
 
 --------------------------------------------------------------------
 **🧠 What Is Gemma 3 12B Instruct?**
+
 Gemma 3 12B Instruct is part of Google’s newly released Gemma family — a series of open-weight, instruction-tuned language models designed to be efficient, accessible, and safe.
 
 The “12B” stands for 12 billion parameters — the internal values that the model learns during training. These parameters allow the model to generate human-like responses, follow instructions, perform reasoning tasks, and more.
@@ -15,6 +16,7 @@ One of Gemma’s biggest strengths? It’s lightweight and designed to run on co
 
 --------------------------------------------------------------------
 **🧪 The Use Case: Classifying Room Images with Just a Prompt**
+
 The goal of this experiment was simple: Can a language model — not specifically trained for image classification — determine whether a room is messy or clean just by looking at a picture?
 
 To test this, I used the Messy vs. Clean Room dataset on Kaggle. This dataset contains labeled images of bedrooms and other spaces, each tagged as either “clean” or “messy.” It’s typically used to train computer vision models, but I wanted to see how far we could go using only prompting and a general-purpose LLM.
@@ -27,6 +29,7 @@ No fine-tuning. No additional data. Just a prompt and a powerful model running l
 
 --------------------------------------------------------------------
 **💻 Experimenting with Gemma Using LM Studio**
+
 To run Gemma 3 12B Instruct locally, I used LM Studio — a desktop application that makes it easy to download, load, and interact with large language models on your own machine.
 
 🧰 What Is LM Studio?
@@ -48,6 +51,7 @@ LM Studio also allows you to run a local HTTP server, enabling integration with 
 
 --------------------------------------------------------------------
 **🛠️ My Setup: Running Gemma Locally**
+
 One of the most exciting parts of this project is that everything ran offline, on my own machine — no cloud GPUs, no API keys, and no internet required.
 
 My GPU is an NVIDIA RTX 4070 Ti Super with 16 GB of VRAM — enough to comfortably run Gemma 3 12B Instruct in GGUF format (Q4_K_M quantized).
@@ -61,6 +65,7 @@ VRAM: While your system’s RAM handles general-purpose tasks, VRAM (Video RAM) 
 
 --------------------------------------------------------------------
 **📈 Initial Results: What Happened Out of the Box?**
+
 With the setup ready and the dataset in place, I ran the first round of image classification using Gemma 3 12B Instruct. I passed one image at a time through LM Studio, each paired with the following prompt:
 
 Classify the image as 'clean' or 'messy'. Reply only with 'clean' or 'messy'.
