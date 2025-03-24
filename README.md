@@ -4,7 +4,7 @@ The power of modern language models isn’t just in what they say — it’s in 
 Let’s start with what Gemma actually is — and why it matters.
 
 --------------------------------------------------------------------
-#🧠 What Is Gemma 3 12B Instruct?
+🧠 #What Is Gemma 3 12B Instruct?
 Gemma 3 12B Instruct is part of Google’s newly released Gemma family — a series of open-weight, instruction-tuned language models designed to be efficient, accessible, and safe.
 
 The “12B” stands for 12 billion parameters — the internal values that the model learns during training. These parameters allow the model to generate human-like responses, follow instructions, perform reasoning tasks, and more.
