@@ -33,19 +33,11 @@ No fine-tuning. No additional data. Just a prompt and a powerful model running l
 To run Gemma 3 12B Instruct locally, I used LM Studio — a desktop application that makes it easy to download, load, and interact with large language models on your own machine.
 
 🧰 What Is LM Studio?
-A free, cross-platform app for running open-source LLMs locally
+- A free, cross-platform app for running open-source LLMs locally
+- Supports GGUF models via the llama.cpp backend (efficient CPU/GPU inference)
+- Offers both a chat interface and a local API server for programmatic interaction
 
-Supports GGUF models via the llama.cpp backend (efficient CPU/GPU inference)
-
-Offers both a chat interface and a local API server for programmatic interaction
-
-I initially used the built-in chat interface (screenshot below) to prompt Gemma with images and collect responses. This made it easy to test variations of the task manually before moving to automated experiments via Python.
-
-Minimize image
-Edit image
-Delete image
-
-Testing Gemma 3 using the Chat interface of LM Sudio
+I initially used the built-in chat interface to prompt Gemma with images and collect responses. This made it easy to test variations of the task manually before moving to automated experiments via Python.
 
 LM Studio also allows you to run a local HTTP server, enabling integration with custom scripts. This is how I connected Python to automate the image classification process and evaluate performance at scale.
 
@@ -59,9 +51,8 @@ My GPU is an NVIDIA RTX 4070 Ti Super with 16 GB of VRAM — enough to comfortab
 Quantization is a technique that reduces the size of a model by lowering the precision of its internal weights (e.g., from 16-bit floats to 4-bit integers). This drastically cuts down memory requirements while keeping performance nearly intact. Thanks to quantization, we are able to run parameter-heavy models locally without specialized hardware.
 
 Why GPU & VRAM Matter:
-GPU Acceleration drastically speeds up inference compared to CPU-only setups, making interactions with the model feel real-time.
-
-VRAM: While your system’s RAM handles general-purpose tasks, VRAM (Video RAM) is dedicated memory on the GPU. It’s where the model is actually loaded during inference. If the model doesn't fit in VRAM, it has to spill over to system RAM or disk — which slows things down dramatically, or makes it impossible to run altogether.
+- GPU Acceleration drastically speeds up inference compared to CPU-only setups, making interactions with the model feel real-time.
+- VRAM: While your system’s RAM handles general-purpose tasks, VRAM (Video RAM) is dedicated memory on the GPU. It’s where the model is actually loaded during inference. If the model doesn't fit in VRAM, it has to spill over to system RAM or disk — which slows things down dramatically, or makes it impossible to run altogether.
 
 --------------------------------------------------------------------
 **📈 Initial Results: What Happened Out of the Box?**
@@ -73,14 +64,10 @@ Classify the image as 'clean' or 'messy'. Reply only with 'clean' or 'messy'.
 No context. No examples. Just the image and the instruction.
 
 The Results:
-
-Precision (clean): 1.00 → Every time it said “clean,” it was correct
-
-Recall (clean): 0.79 → It missed some clean rooms
-
-Precision (messy): 0.83 → Some clean rooms were wrongly called messy
-
-Recall (messy): 1.00 → It caught all the messy rooms
+- Precision (clean): 1.00 → Every time it said “clean,” it was correct
+- Recall (clean): 0.79 → It missed some clean rooms
+- Precision (messy): 0.83 → Some clean rooms were wrongly called messy
+- Recall (messy): 1.00 → It caught all the messy rooms
 
 My Intuition:
 
@@ -96,18 +83,12 @@ Gemma was missing some clean rooms and occasionally flagging them as messy. For 
 I wanted to improve the results. A few years ago, this is what that would’ve involved:
 
 Improving Model Performance Used to Mean:
-
-Collecting more labeled training data
-
-Writing a custom training pipeline (usually in PyTorch or TensorFlow)
-
-Fine-tuning the model with careful hyperparameter tuning
-
-Monitoring loss curves and overfitting risks
-
-Running experiments for hours or days on a GPU cluster
-
-Deploying and re-evaluating over and over again
+- Collecting more labeled training data
+- Writing a custom training pipeline (usually in PyTorch or TensorFlow)
+- Fine-tuning the model with careful hyperparameter tuning
+- Monitoring loss curves and overfitting risks
+- Running experiments for hours or days on a GPU cluster
+- Deploying and re-evaluating over and over again
 
 Even small improvements required serious time, compute, and expertise.
 
@@ -127,14 +108,10 @@ Classify the image as 'clean' or 'messy'. Be less neat and more tolerant. Do not
 That small change made a big difference.
 
 New Results — Perfect Accuracy:
-
-Precision (clean): 1.00
-
-Recall (clean): 1.00
-
-Precision (messy): 1.00
-
-Recall (messy): 1.00
+- Precision (clean): 1.00
+- Recall (clean): 1.00
+- Precision (messy): 1.00
+- Recall (messy): 1.00
 
 The model no longer misjudged clean rooms, and it still confidently identified messy ones. All it needed was a clearer set of expectations — no code, no data, no retraining.
 
@@ -146,15 +123,11 @@ Disclaimer: Keep in mind that this is a curated Kaggle dataset, where the images
 This wasn’t just a fun test — it’s a glimpse into the future of how we build with AI.
 
 Here’s why this matters:
-No training required: Gemma wasn’t fine-tuned or retrained. It understood the task through instructions alone.
-
-Performance improved with a few words: A simple prompt tweak led to perfect accuracy — no models were changed.
-
-30 minutes, start to finish: From setup to final result, the entire process took less than half an hour.
-
-General-purpose model: Gemma isn’t built just for image tasks — it can answer questions, write code, and more.
-
-Runs offline on mainstream hardware: All of this happened locally, on a consumer GPU, with no cloud or internet dependency.
+- No training required: Gemma wasn’t fine-tuned or retrained. It understood the task through instructions alone.
+- Performance improved with a few words: A simple prompt tweak led to perfect accuracy — no models were changed.
+- 30 minutes, start to finish: From setup to final result, the entire process took less than half an hour.
+- General-purpose model: Gemma isn’t built just for image tasks — it can answer questions, write code, and more.
+- Runs offline on mainstream hardware: All of this happened locally, on a consumer GPU, with no cloud or internet dependency.
 
 The Big Shift:
 
@@ -166,10 +139,8 @@ What used to take days of engineering and training can now be achieved by writin
 While this experiment focused on classifying messy vs. clean rooms, the real power of Gemma 3 12B Instruct lies in its flexibility. With the ability to understand both language and images, it can be applied across a variety of practical scenarios — no retraining required.
 
 Real-World Use Cases:
-🏬 Warehouse Monitoring Identify stock levels, misplaced items, or empty shelves using visual input from camera feeds.
-
-🧰 Telco Field Interventions Perform post-task verification by asking the model: “Is this site cleaned and closed properly?” — based on a single image.
-
-🏥 Healthcare & Workplace Safety Assist in monitoring hospital rooms or workspaces to ensure they meet cleanliness and safety standards.
+- 🏬 Warehouse Monitoring Identify stock levels, misplaced items, or empty shelves using visual input from camera feeds.
+- 🧰 Telco Field Interventions Perform post-task verification by asking the model: “Is this site cleaned and closed properly?” — based on a single image.
+- 🏥 Healthcare & Workplace Safety Assist in monitoring hospital rooms or workspaces to ensure they meet cleanliness and safety standards.
 
 All of these tasks can be handled using the same model, the same hardware, and just the right prompt.
